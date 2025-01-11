@@ -15,70 +15,61 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import posts from '@/data/posts';
 import { useToast } from '@/components/ui/use-toast';
 
 const formSchema = z.object({
-  title: z.string().min(1, {
-    message: 'Title is required',
+  eventName: z.string().min(1, {
+    message: 'Tên sự kiện là bắt buộc',
   }),
-  body: z.string().min(1, {
-    message: 'Body is required',
+  startDate: z.string().min(1, {
+    message: 'Ngày bắt đầu là bắt buộc',
   }),
-  author: z.string().min(1, {
-    message: 'Author is required',
+  location: z.string().min(1, {
+    message: 'Địa điểm là bắt buộc',
   }),
-  date: z.string().min(1, {
-    message: 'Date is required',
-  }),
+  description: z.string().optional(),
 });
 
-interface PostEditPageProps {
-  params: {
-    id: string;
-  };
-}
-
-const PostEditPage = ({ params }: PostEditPageProps) => {
+const AddEventPage = () => {
   const { toast } = useToast();
-
-  const post = posts.find((post) => post.id === params.id);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      title: post?.title || '',
-      body: post?.body || '',
-      author: post?.author || '',
-      date: post?.date || '',
+      eventName: '',
+      startDate: '',
+      location: '',
+      description: '',
     },
   });
 
   const handleSubmit = (data: z.infer<typeof formSchema>) => {
     toast({
-      title: 'Post has been updated successfully',
-      description: `Updated by ${post?.author} on ${post?.date}`,
+      title: 'Sự kiện đã được thêm thành công',
+      description: `Sự kiện "${data.eventName}" sẽ diễn ra vào ${data.startDate} tại ${data.location}`,
     });
+    console.log('Event Data:', data);
   };
 
   return (
     <>
-      <BackButton text='Back To Posts' link='/posts' />
-      <h3 className='text-2xl mb-4'>Edit Post</h3>
+      <BackButton text='Back To Event' link='/events' />
+      <h3 className='text-2xl mb-4'>Thêm sự kiện</h3>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className='space-y-8'>
+          {/* Tên sự kiện */}
           <FormField
             control={form.control}
-            name='title'
+            name='eventName'
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
-                  Title
+                  Tên sự kiện
                 </FormLabel>
                 <FormControl>
                   <Input
                     className='bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0'
-                    placeholder='Enter Title'
+                    placeholder='Nhập tên sự kiện'
                     {...field}
                   />
                 </FormControl>
@@ -87,18 +78,61 @@ const PostEditPage = ({ params }: PostEditPageProps) => {
             )}
           />
 
+          {/* Ngày bắt đầu */}
           <FormField
             control={form.control}
-            name='body'
+            name='startDate'
             render={({ field }) => (
               <FormItem>
                 <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
-                  Body
+                  Ngày bắt đầu
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    type='date'
+                    className='bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0'
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Địa điểm */}
+          <FormField
+            control={form.control}
+            name='location'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
+                  Địa điểm
+                </FormLabel>
+                <FormControl>
+                  <Input
+                    className='bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0'
+                    placeholder='Nhập địa điểm tổ chức'
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Mô tả sự kiện */}
+          <FormField
+            control={form.control}
+            name='description'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
+                  Mô tả
                 </FormLabel>
                 <FormControl>
                   <Textarea
                     className='bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0'
-                    placeholder='Enter Body'
+                    placeholder='Nhập mô tả sự kiện (tuỳ chọn)'
                     {...field}
                   />
                 </FormControl>
@@ -107,48 +141,9 @@ const PostEditPage = ({ params }: PostEditPageProps) => {
             )}
           />
 
-          <FormField
-            control={form.control}
-            name='author'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
-                  Author
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    className='bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0'
-                    placeholder='Enter Author'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name='date'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className='uppercase text-xs font-bold text-zinc-500 dark:text-white'>
-                  Date
-                </FormLabel>
-                <FormControl>
-                  <Input
-                    className='bg-slate-100 dark:bg-slate-500 border-0 focus-visible:ring-0 text-black dark:text-white focus-visible:ring-offset-0'
-                    placeholder='Enter Date'
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
+          {/* Nút thêm sự kiện */}
           <Button className='w-full dark:bg-slate-800 dark:text-white'>
-            Update Post
+            Thêm sự kiện
           </Button>
         </form>
       </Form>
@@ -156,4 +151,4 @@ const PostEditPage = ({ params }: PostEditPageProps) => {
   );
 };
 
-export default PostEditPage;
+export default AddEventPage;

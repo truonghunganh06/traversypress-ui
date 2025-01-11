@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import logo from '../img/logo.png';
+import logo from '../img/FPT_Polytechnic.png';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import {
   DropdownMenu,
@@ -16,7 +16,7 @@ const Navbar = () => {
   return (
     <div className='bg-primary dark:bg-slate-700 text-white py-2 px-5 flex justify-between'>
       <Link href='/'>
-        <Image src={logo} alt='TraversyPress' width={40} />
+        <Image src={logo} alt='FPT_Education' width={100} />
       </Link>
 
       <div className='flex items-center'>

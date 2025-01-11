@@ -14,7 +14,11 @@ const config = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        sm: "100%",
+        md: "100%",
+        lg: "100%",
+        xl: "1200px", // Cỡ lớn hơn cho desktop
+        "2xl": "1400px", // Như bạn đã cấu hình
       },
     },
     extend: {

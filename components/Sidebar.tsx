@@ -12,10 +12,9 @@ import {
 import {
   LayoutDashboard,
   Newspaper,
-  Folders,
-  CreditCard,
-  Settings,
-  User,
+  CalendarFoldIcon,
+  Gamepad2,
+  Users,
 } from 'lucide-react';
 import Link from 'next/link';
 
@@ -27,36 +26,30 @@ const Sidebar = () => {
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandGroup heading='Suggestions'>
           <CommandItem>
-            <LayoutDashboard className='mr-2 h-4 w-4' />
+            <Newspaper className='mr-2 h-4 w-4' />
             <Link href='/'>Dashboard</Link>
           </CommandItem>
           <CommandItem>
-            <Newspaper className='mr-2 h-4 w-4' />
-            <Link href='/posts'>Posts</Link>
+            <CalendarFoldIcon className='mr-2 h-4 w-4' />
+            <Link href='/events'>Event</Link>
           </CommandItem>
           <CommandItem>
-            <Folders className='mr-2 h-4 w-4' />
-            <Link href='#'>Categories</Link>
+            <Gamepad2 className='mr-2 h-4 w-4' />
+            <Link href='/games'>Games</Link>
+          </CommandItem>
+          <CommandItem>
+            <Users className='mr-2 h-4 w-4' />
+            <Link href='/users'>User</Link>
           </CommandItem>
         </CommandGroup>
         <CommandSeparator />
-        <CommandGroup heading='Settings'>
+        {/* <CommandGroup heading='Settings'>
           <CommandItem>
             <User className='mr-2 h-4 w-4' />
             <span>Profile</span>
             <CommandShortcut>⌘P</CommandShortcut>
           </CommandItem>
-          <CommandItem>
-            <CreditCard className='mr-2 h-4 w-4' />
-            <span>Billing</span>
-            <CommandShortcut>⌘B</CommandShortcut>
-          </CommandItem>
-          <CommandItem>
-            <Settings className='mr-2 h-4 w-4' />
-            <span>Settings</span>
-            <CommandShortcut>⌘S</CommandShortcut>
-          </CommandItem>
-        </CommandGroup>
+        </CommandGroup> */}
       </CommandList>
     </Command>
   );

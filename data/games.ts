@@ -1,11 +1,11 @@
-import { Post } from '@/types/posts';
+import { Game } from '@/types/games';
 
-const posts: Post[] = [
+const games: Game[] = [
   {
     id: '1',
     title: 'The Rise of Artificial Intelligence',
     body: 'Artificial Intelligence (AI) is revolutionizing various industries...',
-    author: 'John Doe',
+    author: 'Hùng Anh',
     date: '2024-05-01',
     comments: [
       { id: '1', text: 'Great introduction!', username: 'Jane' },
@@ -169,4 +169,4 @@ const posts: Post[] = [
   },
 ];
 
-export default posts;
+export default games;

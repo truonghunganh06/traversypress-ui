@@ -31,15 +31,15 @@ import data from '@/data/analytics';
 const availableFilters = [
   {
     value: "uv",
-    label: "Unique Visitors",
+    label: "Events",
   },
   {
     value: "pv",
-    label: "Page Views",
+    label: "Games",
   },
   {
     value: "amt",
-    label: "Amount",
+    label: "Users",
   }
 ]
 
@@ -51,8 +51,8 @@ const AnalyticsChart = () => {
     <>
       <Card>
         <CardHeader>
-          <CardTitle>Analytics For This Year</CardTitle>
-          <CardDescription>Views Per Month</CardDescription>
+          <CardTitle>Reports</CardTitle>
+          <CardDescription></CardDescription>
           <Select onValueChange={setSelection} defaultValue="pv">
           <SelectTrigger className="w-96 h-8">
             <SelectValue placeholder="Select Account" />

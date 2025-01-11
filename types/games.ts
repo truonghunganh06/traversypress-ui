@@ -1,4 +1,4 @@
-export interface Post {
+export interface Game {
   id: string;
   title: string;
   body: string;

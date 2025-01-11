@@ -8,28 +8,35 @@ import {
   TableCaption,
 } from '@/components/ui/table';
 import Link from 'next/link';
-import posts from '@/data/posts';
-import { Post } from '@/types/posts';
+import games from '@/data/games';
+import { Game } from '@/types/games';
 
-interface PostsTableProps {
+interface GamesTableProps {
   limit?: number;
   title?: string;
 }
 
-const PostsTable = ({ limit, title }: PostsTableProps) => {
+const GamesTable = ({ limit, title }: GamesTableProps) => {
   // Sort posts in dec order based on date
-  const sortedPosts: Post[] = [...posts].sort(
+  const sortedGames: Game[] = [...games].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 
   // Filter posts to limit
-  const filteredPosts = limit ? sortedPosts.slice(0, limit) : sortedPosts;
+  const filteredGames = limit ? sortedGames.slice(0, limit) : sortedGames;
 
   return (
     <div className='mt-10'>
-      <h3 className='text-2xl mb-4 font-semibold'>{title ? title : 'Posts'}</h3>
+      <h3 className='text-2xl mb-4 font-semibold flex justify-between items-center'>
+          {title ? title : 'Games'}
+          <Link href="/games/add">
+            <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-xs mr-14 '>
+              Add Games
+            </button>
+          </Link>
+      </h3>
       <Table>
-        <TableCaption>A list of recent posts</TableCaption>
+        <TableCaption>A list of recent games</TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead>Title</TableHead>
@@ -41,21 +48,26 @@ const PostsTable = ({ limit, title }: PostsTableProps) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredPosts.map((post) => (
-            <TableRow key={post.id}>
-              <TableCell>{post.title}</TableCell>
+          {filteredGames.map((game) => (
+            <TableRow key={game.id}>
+              <TableCell>{game.title}</TableCell>
               <TableCell className='hidden md:table-cell'>
-                {post.author}
+                {game.author}
               </TableCell>
               <TableCell className='text-right hidden md:table-cell'>
-                {post.date}
+                {game.date}
               </TableCell>
               <TableCell>
-                <Link href={`/posts/edit/${post.id}`}>
+                <Link href={`/games/edit/${game.id}`}>
                   <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-xs'>
                     Edit
                   </button>
                 </Link>
+              </TableCell>
+              <TableCell>
+                  <button className='bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded text-xs'>
+                    Delete
+                  </button>
               </TableCell>
             </TableRow>
           ))}
@@ -65,4 +77,4 @@ const PostsTable = ({ limit, title }: PostsTableProps) => {
   );
 };
 
-export default PostsTable;
+export default GamesTable;
